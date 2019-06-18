@@ -1,7 +1,7 @@
 package GettingStarted
 
 /**
- * 
+ *
  * https://kotlinlang.org/docs/reference/basic-syntax.html
  */
 fun main() {
