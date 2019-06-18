@@ -1,5 +1,9 @@
 package GettingStarted
 
+/**
+ * 
+ * https://kotlinlang.org/docs/reference/basic-syntax.html
+ */
 fun main() {
 
     //TODO Defining functions
@@ -54,8 +58,10 @@ fun main() {
     //TODO Using a while loop
     val myNewFruits = listOf("banana", "strawberry", "orange", "banana", "apple", "banana", "kiwi", "apple")
     val newFruit = "banana"
-    println("How many $newFruit s are in the my new fruits ? - There is/are ${sumSameFruits(myNewFruits, newFruit)} " +
-            "$newFruit s.")
+    println(
+        "How many $newFruit s are in the my new fruits ? - There is/are ${sumSameFruits(myNewFruits, newFruit)} " +
+                "$newFruit s."
+    )
 
     //TODO Using when expression
     println("Center of city : ${getNameOfImportantPlace(16)}")
