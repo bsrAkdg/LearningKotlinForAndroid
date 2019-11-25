@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/memberListFragment">
+
+    <fragment
+        android:id="@+id/memberListFragment"
+        android:name="com.example.kotlineverywhere.ui.memberlist.MemberListFragment"
+        android:label="fragment_member_list"
+        tools:layout="@layout/fragment_member_list" >
+
+        <action
+            android:id="@+id/action_memberListFragment_to_memberDetailFragment"
+            app:destination="@id/memberDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/memberDetailFragment"
+        android:name="com.example.kotlineverywhere.ui.memberdetail.MemberDetailFragment"
+        android:label="fragment_member_detail"
+        tools:layout="@layout/fragment_member_detail" >
+
+        <action
+            android:id="@+id/action_memberDetailFragment_to_memberListFragment"
+            app:destination="@id/memberListFragment" />
+
+        <argument
+            android:name="member"
+            android:defaultValue="@null"
+            app:argType="com.example.kotlineverywhere.model.Member"
+            app:nullable="true" />
+        
+    </fragment>
+
+</navigation>
