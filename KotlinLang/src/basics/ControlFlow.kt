@@ -1,4 +1,4 @@
-package Basics
+package basics
 
 /**
  * This page contains Control flow(if, when, for, while) on kotlin language

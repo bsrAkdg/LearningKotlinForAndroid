@@ -1,4 +1,4 @@
-package ClassesAndObjects
+package classesAndObjects
 
 /**
  * https://kotlinlang.org/docs/reference/interfaces.html

@@ -1,4 +1,4 @@
-package Basics
+package basics
 
 /**
  * Kotlin has three structural jump expressions: return, break, continue.

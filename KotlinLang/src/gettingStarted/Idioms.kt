@@ -1,4 +1,4 @@
-package GettingStarted
+package gettingStarted
 
 import java.io.File
 import java.util.*

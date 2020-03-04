@@ -4,7 +4,7 @@
 /** License, copyright and whatever */
 @file:JvmName("FooBar")
 
-package GettingStarted
+package gettingStarted
 
 import javax.lang.model.element.Element
 

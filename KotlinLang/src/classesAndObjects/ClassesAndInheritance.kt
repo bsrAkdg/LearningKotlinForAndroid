@@ -1,4 +1,4 @@
-package ClassesAndObjects
+package classesAndObjects
 
 /**
  * The class declaration consists of the class name, the class header (specifying its type parameters,
