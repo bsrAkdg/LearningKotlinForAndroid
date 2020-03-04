@@ -26,8 +26,13 @@ fun main() {
     // Local variables, functions and classes can not have visibility modifiers.
 
     // TODO Modules
-
-
+    /* The internal visibility modifier means that the member is visible within the same module.
+       More specifically, a module is a set of Kotlin files compiled together:
+            an IntelliJ IDEA module;
+            a Maven project;
+            a Gradle source set (with the exception that the test source set can access the internal declarations of main);
+            a set of files compiled with one invocation of the <kotlinc> Ant task.
+    */
 }
 
 fun packages() {
