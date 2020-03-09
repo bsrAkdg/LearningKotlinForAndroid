@@ -1,5 +1,4 @@
 package classesAndObjects
-
 import java.util.*
 
 /**
@@ -12,6 +11,18 @@ import java.util.*
  *
  * https://kotlinlang.org/docs/reference/extensions.html
  * */
+
+fun List<String>.getLongestString() {
+    var length = 0
+    var longestString = String()
+    for (value in this) {
+        if (value.length > length) {
+            length = value.length
+            longestString = value
+        }
+    }
+    println("Longest string is = $longestString")
+}
 
 fun main() {
 
@@ -38,8 +49,18 @@ fun main() {
     // TODO Companion object extensions
     companionObjectExtensions()
 
+    println("\n****************************\n")
+
     // TODO Scope of extensions
     scopeOfObjectExtension()
+
+    println("\n****************************\n")
+
+    // TODO Declaring extensions as members
+    declaringExtensionsAsMembers()
+
+    println("\n****************************\n")
+
 }
 
 // or use Generic
@@ -110,7 +131,7 @@ fun extensionsResolvedStatically() {
     // but a different signature:
 
     fun Example.printFunctionType(id: Int) {
-        println("Extension function")
+        println("Extension function example id : $id")
     }
 
     println("With overload extension function :")
@@ -190,5 +211,95 @@ fun companionObjectExtensions() {
 }
 
 fun scopeOfObjectExtension() {
+    // Most of the time we define extensions on the top level - directly under packages:
+    // look at getLongestString fun
+
+    // To use such an extension outside its declaring package, we need to import it at the call site:
+    // import org.example.project.path.getLongestString
+    val list = listOf("red", "green", "blue", "purple")
+    list.getLongestString()
+}
+
+fun declaringExtensionsAsMembers() {
+    // Inside a class, you can declare extensions for another class. Inside such an extension, there are multiple
+    // implicit receivers - objects members of which can be accessed without a qualifier.
+    // The instance of the class in which the extension is declared is called dispatch receiver,
+    // and the instance of the receiver type of the extension method is called extension receiver.
+
+    class Host(val hostname: String) { //  extension receiver
+        fun printHostname() {
+            println("Host printHostname: $hostname")
+        }
+    }
+
+    class Connection(val host: Host, val port: Int) { // dispatch receiver
+        fun printPort() {
+            println("Connection printPort: $port")
+        }
+
+        fun Host.printConnectionString() {
+            println("Connection printConnectionString: ")
+            printHostname()   // calls Host.printHostname()
+            printPort()   // calls Connection.printPort()
+        }
+
+        fun connect() {
+            host.printConnectionString()   // calls the extension function
+        }
+    }
+
+    Connection(Host("kotl.in"), 443).connect()
+    //Host("kotl.in").printConnectionString(443)  // error, the extension function is unavailable outside Connection
+
+    println("\n--------------\n")
+
+    // In case of a name conflict between the members of the dispatch receiver and the extension receiver,
+    // the extension receiver takes precedence. To refer to the member of the dispatch receiver
+    // you can use the qualified this syntax.
+
+    class HostUpdate(val hostname: String) { //  extension receiver
+        fun printHostname() {
+            println("HostUpdate printHostname: $hostname")
+        }
+
+        fun printConnectionString() {
+            println("HostUpdate printConnectionString: $hostname")
+        }
+    }
+
+    class ConnectionUpdate(val host: HostUpdate, val port: Int) { // dispatch receiver
+        fun printPort() {
+            println("ConnectionUpdate port: $port")
+        }
+
+        fun printHostname() {
+            println("ConnectionUpdate printHostname: ${host.hostname}")
+        }
+
+        fun HostUpdate.printConnectionString() {  // printConnectionString of Host called, not extension fun
+            println("ConnectionUpdate extension printConnectionString:")
+            printHostname()
+            printPort()
+        }
+
+        fun HostUpdate.validateConnection() {
+            println("ConnectionUpdate printConnectionHostString: ")
+            // To refer to the member of the dispatch receiver you can use the qualified this syntax.
+            this@ConnectionUpdate.printHostname() // ConnectionUpdate
+            printHostname() // HostUpdate
+        }
+
+        fun connect() {
+            host.printConnectionString()
+        }
+
+        fun validate() {
+            host.validateConnection()
+        }
+    }
+
+    ConnectionUpdate(HostUpdate("kotl.in"), 445).connect()
+    println("\n--------------\n")
+    ConnectionUpdate(HostUpdate("kotl.in"), 445).validate()
 
 }
