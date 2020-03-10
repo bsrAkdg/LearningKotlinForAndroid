@@ -61,6 +61,19 @@ fun main() {
 
     println("\n****************************\n")
 
+    // TODO Declaring extensions with open
+    declaringExtensionsWithOpen()
+
+    println("\n****************************\n")
+
+    // TODO Note on visibility
+    /* Extensions utilize the same visibility of other entities as regular functions declared in the same scope would.
+    For example:
+        - An extension declared on top level of a file has access to the other private top-level declarations in
+        the same file;
+
+        - If an extension is declared outside its receiver type, such an extension cannot access the receiver's
+        private members.*/
 }
 
 // or use Generic
@@ -302,4 +315,53 @@ fun declaringExtensionsAsMembers() {
     println("\n--------------\n")
     ConnectionUpdate(HostUpdate("kotl.in"), 445).validate()
 
+}
+
+fun declaringExtensionsWithOpen() {
+    // Extensions declared as members can be declared as open and overridden in subclasses.
+    // This means that the dispatch of such functions is virtual with regard to the dispatch receiver type,
+    // but static with regard to the extension receiver type.
+
+    open class Machine
+
+    open class Car : Machine()
+
+    open class MachineHelper {
+
+        open fun Machine.showMachineAttr() {
+            println("Machine extension showMachineAttr function in MachineHelper")
+        }
+
+        open fun Car.showMachineAttr() {
+            println("Car extension showMachineAttr function in MachineHelper")
+        }
+
+        open fun call(machine: Machine) {
+            machine.showMachineAttr()
+        }
+    }
+
+    open class CarHelper : MachineHelper() {
+
+        override fun Machine.showMachineAttr() {
+            println("Machine extension showMachineAttr function in CarHelper")
+        }
+
+        override fun Car.showMachineAttr() {
+            println("Car extension showMachineAttr function in CarHelper")
+        }
+
+        /*fun call(car: Car) {
+            car.showMachineAttr()
+        }*/
+    }
+
+    println("Machine Helper called with Machine instance")
+    MachineHelper().call(Machine())
+    println("\n")
+    println("Car Helper called with Machine instance")
+    CarHelper().call(Machine()) // dispatch receiver is resolved virtually
+    println("\n")
+    println("Car Helper called with Machine instance")
+    CarHelper().call((Car())) // extension receiver is resolved statically
 }
