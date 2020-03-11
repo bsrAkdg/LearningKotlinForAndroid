@@ -16,6 +16,22 @@ fun main() {
 
     // TODO Properties Declared in the Class Body
     propertiesDeclaredInTheClassBody()
+
+    println("\n****************************\n")
+
+    // TODO Copying
+    copying()
+
+    println("\n****************************\n")
+
+    // TODO Data Classes and Destructuring Declarations
+    destructuringDeclarations()
+
+    println("\n****************************\n")
+
+    // TODO Standard Data Classes
+    standartDataClasses()
+
 }
 
 fun dataClass() {
@@ -78,5 +94,41 @@ fun propertiesDeclaredInTheClassBody() {
 
     val personThird = personOne.copy(name = "Fatma")
     println("${personThird.name}'s age : ${personThird.age}")
+}
 
+fun copying() {
+    // It's often the case that we need to copy an object altering some of its properties, but keeping
+    // the rest unchanged. This is what copy() function is generated for. For the User class above,
+    // its implementation would be as follows:
+
+    data class User(val username: String, val age: Int)
+
+    val ali1 = User("Ali", 20)
+    println("1. Ali : $ali1")
+    val veli = ali1.copy(username = "Veli")
+    println("1. Veli : $veli")
+    val ali2 = ali1.copy(age = 30)
+    println("2. Ali : $ali2")
+
+}
+
+fun destructuringDeclarations() {
+    // Component functions generated for data classes enable their use in destructuring declarations:
+
+    data class User(val username: String, val age: Int)
+
+    val ali = User("Ali", 20)
+    val (name, age) = ali
+    println("$name is $age years of age")
+}
+
+fun standartDataClasses() {
+    // The standard library provides Pair and Triple. In most cases, though, named data classes are
+    // a better design choice, because they make the code more readable by providing meaningful names for properties.
+
+    val pair = Pair("My first pair message", "My second pair message")
+    val triple = Triple("My first triple message", "My second triple message", "My third triple message")
+
+    println("First item of pair : ${pair.first}")
+    println("Second item of triple : ${triple.third}")
 }
