@@ -9,7 +9,6 @@ import java.util.function.IntBinaryOperator
  *
  **/
 
-
 fun main() {
     // TODO Overview
     enumOverview()
@@ -26,6 +25,8 @@ fun main() {
 
     // TODO Implementing Interfaces in Enum Classes
     implementingInterfacesInEnumClasses()
+
+    println("\n****************************\n")
 
     // TODO Working with Enum Constants
     workingWithEnumConstants()
@@ -114,5 +115,31 @@ fun implementingInterfacesInEnumClasses() {
 
 fun workingWithEnumConstants() {
     // Enum classes in Kotlin have synthetic methods allowing to list the defined enum constants and to get an enum
-    // constant by its name. The signatures of these methods are as follows (assuming the name of the enum class is EnumClass):
+    // constant by its name. The signatures of these methods are as follows
+    // (assuming the name of the enum class is IntArithmetic):
+
+    val plus = IntArithmetic.valueOf("PLUS")
+    println("Value of PLUS is $plus")
+
+    // The valueOf() method throws an IllegalArgumentException
+    // if the specified name does not match any of the enum constants defined in the class. For example :
+    try {
+        val unknown = IntArithmetic.valueOf("UNKNOWN")
+        println("Value of UNKNOWN is $unknown")
+    } catch (exception : IllegalArgumentException) {
+        println("IntArithmetic have no UNKNOWN")
+    }
+
+    val values = IntArithmetic.values()
+    println("Values of IntArithmetic are : ")
+    values.forEach { println(it) }
+
+    // Every enum constant has properties to obtain its name and position in the enum class declaration:
+    println("PLUS name is ${plus.name}, ordinal name is ${plus.ordinal}")
+    val times = IntArithmetic.valueOf("TIMES")
+    println("TIMES name is ${times.name}, ordinal name is ${times.ordinal}")
+
+    // The enum constants also implement the Comparable interface, with the natural order being the order in
+    // which they are defined in the enum class.
+
 }
