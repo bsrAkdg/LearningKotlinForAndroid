@@ -1,7 +1,6 @@
 package functionsAndLambdas
 
 /**
- * Functions in Kotlin are declared using the fun keyword:
  *
  * https://kotlinlang.org/docs/reference/lambdas.html
  *
